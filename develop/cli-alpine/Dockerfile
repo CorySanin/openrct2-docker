@@ -5,7 +5,7 @@ RUN apk update \
  && apk add duktape-dev --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
  && rm -rf /var/cache/apk/*
 
-ENV OPENRCT2_REF develop
+ARG OPENRCT2_REF=develop
 WORKDIR /openrct2
 RUN git -c http.sslVerify=false clone --depth 1 -b $OPENRCT2_REF https://github.com/OpenRCT2/OpenRCT2 . \
  && mkdir build \
