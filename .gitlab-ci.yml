@@ -7,6 +7,7 @@ variables:
 
 stages:
     - build
+    - deploy
 
 variables:
     BRANCH: "develop"
@@ -29,3 +30,9 @@ alpine-image:
     script:
         - docker build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-cli:$TAG-alpine" -f ./develop/cli-alpine/Dockerfile .
         - "if [ ! -z ${DOCKER_PASSWORD+x} ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker push \"corysanin/openrct2-cli:$TAG-alpine\"; fi"
+
+# this step exists to trigger the deploy webhook
+deploy:
+    stage: deploy
+    script:
+        - "echo 'images successfully pushed to corysanin/openrct2-cli'"
