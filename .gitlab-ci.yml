@@ -25,8 +25,8 @@ debian-image:
         - "if [ ! -z ${DOCKER_PASSWORD+x} ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker push \"corysanin/openrct2-cli:$TAG-debian\"; docker push \"corysanin/openrct2-cli:$TAG\"; fi"
         - if [ ! -z ${CI_REGISTRY_PASSWORD+x} ]; then echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin; docker push "$CI_REGISTRY_IMAGE"; fi
 
-#alpine-image:
-#    stage: build
-#    script:
-#        - docker build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-cli:$TAG-alpine" -f ./develop/cli-alpine/Dockerfile .
-#        - "if [ ! -z ${DOCKER_PASSWORD+x} ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; #docker push \"corysanin/openrct2-cli:$TAG-alpine\"; fi"
+alpine-image:
+   stage: build
+   script:
+       - docker build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-cli:$TAG-alpine" -f ./develop/cli-alpine/Dockerfile .
+       - "if [ ! -z ${DOCKER_PASSWORD+x} ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker push \"corysanin/openrct2-cli:$TAG-alpine\"; fi"
