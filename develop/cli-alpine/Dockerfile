@@ -19,7 +19,7 @@ RUN apk add --no-cache rsync ca-certificates libpng libzip libcurl duktape freet
  && rm -rf /openrct2-install \
  && openrct2-cli --version \
 # Set up ordinary user
- && addgroup -S openrct2 && adduser -S openrct2 -G openrct2
+ && addgroup -g 1000 -S openrct2 && adduser -G openrct2 -u 1000 -DS openrct2
 USER openrct2
 WORKDIR /home/openrct2
 EXPOSE 11753
