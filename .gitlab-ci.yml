@@ -12,23 +12,10 @@ variables:
     BRANCH: "develop"
     TAG: "develop"
 
-ubuntu-image:
-    stage: build
-    script:
-        - docker build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-cli:$TAG-ubuntu" -f ./develop/cli-ubuntu/Dockerfile .
-        - "if [ ! -z ${DOCKER_PASSWORD+x} ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker push \"corysanin/openrct2-cli:$TAG-ubuntu\"; fi"
-
-debian-image:
-    stage: build
-    script:
-        - docker build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-cli:$TAG-debian" -t "corysanin/openrct2-cli:$TAG" -t "$CI_REGISTRY_IMAGE" -f ./develop/cli-debian/Dockerfile .
-        - "if [ ! -z ${DOCKER_PASSWORD+x} ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker push \"corysanin/openrct2-cli:$TAG-debian\"; docker push \"corysanin/openrct2-cli:$TAG\"; fi"
-        - if [ ! -z ${CI_REGISTRY_PASSWORD+x} ]; then echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin; docker push "$CI_REGISTRY_IMAGE"; fi
-
 alpine-image:
     stage: build
     before_script:
         - docker buildx create --use
     script:
-        - docker buildx build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-cli:$TAG-alpine" -f ./develop/cli-alpine/Dockerfile .
-        - "if [ ! -z ${DOCKER_PASSWORD+x} ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker buildx build --push --build-arg \"OPENRCT2_REF=$BRANCH\" -t \"corysanin/openrct2-cli:$TAG-alpine\" -f ./develop/cli-alpine/Dockerfile .; fi"
+        - docker buildx build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-test:$TAG-alpine" -f ./develop/cli-alpine/Dockerfile .
+        - "if [ "test" ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker buildx build --push --build-arg \"OPENRCT2_REF=$BRANCH\" -t \"corysanin/openrct2-test:$TAG-alpine\" -f ./develop/cli-alpine/Dockerfile .; fi"
