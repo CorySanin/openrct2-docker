@@ -17,5 +17,5 @@ alpine-image:
     before_script:
         - docker buildx create --use
     script:
-        - docker buildx build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-test:$TAG-alpine" -f ./develop/cli-alpine/Dockerfile .
-        - "if [ "test" ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker buildx build --push --build-arg \"OPENRCT2_REF=$BRANCH\" -t \"corysanin/openrct2-test:$TAG-alpine\" -f ./develop/cli-alpine/Dockerfile .; fi"
+       - docker buildx build --build-arg "OPENRCT2_REF=$BRANCH" -t "corysanin/openrct2-test:$TAG-alpine" -f ./develop/cli-alpine/Dockerfile .
+       - "if [ "test" ]; then echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin; docker buildx build --push --build-arg \"OPENRCT2_REF=$BRANCH\" -t \"corysanin/openrct2-test:$TAG-alpine\" -f ./develop/cli-alpine/Dockerfile .; fi"
