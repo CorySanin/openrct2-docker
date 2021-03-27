@@ -1,4 +1,4 @@
-image: docker:latest
+image: jonoh/docker-buildx-qemu:latest
 services:
     - docker:dind
 
