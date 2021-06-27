@@ -1,6 +1,6 @@
 # Build OpenRCT2
 FROM alpine:latest AS build-env
-RUN apk add --no-cache git gcc g++ make cmake duktape-dev nlohmann-json libzip-dev curl-dev libressl-dev sdl2-dev speexdsp-dev fontconfig-dev fts-dev icu-dev musl-dev linux-headers
+RUN apk add --no-cache git gcc g++ make cmake duktape-dev nlohmann-json libzip-dev curl-dev sdl2-dev speexdsp-dev fontconfig-dev fts-dev icu-dev musl-dev linux-headers
 
 ARG OPENRCT2_REF=develop
 WORKDIR /openrct2
